@@ -11,6 +11,7 @@
 		6042BD8C29B4E59F00BBB537 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042BD8B29B4E59F00BBB537 /* ViewController.swift */; };
 		6042BD9129B4E5A400BBB537 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6042BD9029B4E5A400BBB537 /* Assets.xcassets */; };
 		6042BD9429B4E5A400BBB537 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6042BD9229B4E5A400BBB537 /* LaunchScreen.storyboard */; };
+		6042BDA629B6B04200BBB537 /* CurrentWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042BDA529B6B04200BBB537 /* CurrentWeatherView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		6042BD9029B4E5A400BBB537 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6042BD9329B4E5A400BBB537 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6042BD9529B4E5A400BBB537 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6042BDA529B6B04200BBB537 /* CurrentWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 			children = (
 				6042BD8729B4E59F00BBB537 /* AppDelegate.swift */,
 				6042BD8B29B4E59F00BBB537 /* ViewController.swift */,
+				6042BDA529B6B04200BBB537 /* CurrentWeatherView.swift */,
 				6042BD9029B4E5A400BBB537 /* Assets.xcassets */,
 				6042BD9229B4E5A400BBB537 /* LaunchScreen.storyboard */,
 				6042BD9529B4E5A400BBB537 /* Info.plist */,
@@ -131,6 +134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6042BDA629B6B04200BBB537 /* CurrentWeatherView.swift in Sources */,
 				6042BD8C29B4E59F00BBB537 /* ViewController.swift in Sources */,
 				6042BD8829B4E59F00BBB537 /* AppDelegate.swift in Sources */,
 			);
