@@ -14,8 +14,6 @@ struct RecentRequestViewModel {
     let time: String
 }
 
-var recentRequests: [RecentRequestViewModel] = []
-
 public func convertToFahrenheit(_ kelvin: Double) -> Int {
     return Int((kelvin - 273.15) * 1.8 + 32)
 }

@@ -5,6 +5,7 @@
 //  Created by Николай Игнатов on 05.03.2023.
 //
 
+import CoreData
 import CoreLocation
 import UIKit
 
@@ -15,6 +16,8 @@ final class WeatherViewController: UIViewController {
     private let currentWeatherView = CurrentWeatherView(frame: .zero)
     
     private let locationManager = CLLocationManager()
+    
+    private var recentRequests: [NSManagedObject] = []
     
     private let recentRequestList: UITableView = {
         let tableView = UITableView()
@@ -33,6 +36,22 @@ final class WeatherViewController: UIViewController {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         recentRequestList.dataSource = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let appDeligate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDeligate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "WeatherRequestItem")
+        
+        do {
+            recentRequests = try managedContext.fetch(fetchRequest)
+        } catch let error as NSError {
+            print(error)
+        }
     }
     
     private func setNavigationController() {
@@ -68,8 +87,28 @@ final class WeatherViewController: UIViewController {
         ])
     }
     
-    @objc func getCurrentLocationButtonTapped() {
+    @objc private func getCurrentLocationButtonTapped() {
         locationManager.requestLocation()
+    }
+    
+    private func save(city: String, temperature: String, date: String, time: String) {
+        guard let appDeligate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
+        let managedContext = appDeligate.persistentContainer.viewContext
+        guard let entity = NSEntityDescription.entity(forEntityName: "WeatherRequestItem", in: managedContext) else { return }
+        let weatherRequestItem = NSManagedObject(entity: entity, insertInto: managedContext)
+        
+        weatherRequestItem.setValue(city, forKey: "city")
+        weatherRequestItem.setValue(temperature, forKey: "temperature")
+        weatherRequestItem.setValue(date, forKey: "date")
+        weatherRequestItem.setValue(time, forKey: "time")
+        
+        do {
+            try managedContext.save()
+            recentRequests.append(weatherRequestItem)
+        } catch let error as NSError {
+            print(error)
+        }
     }
     
 }
@@ -96,7 +135,7 @@ private extension WeatherViewController {
                                                                        temperature: String(convertToFahrenheit(temp)),
                                                                        date: dateString,
                                                                        time: timeString)
-                        recentRequests.append(recentRequestItem)
+                        self?.save(city: recentRequestItem.cityName, temperature: recentRequestItem.temperature, date: recentRequestItem.date, time: recentRequestItem.time)
                         self?.recentRequestList.reloadData()
                     } else {
                         print("Error")
@@ -122,10 +161,19 @@ extension WeatherViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RecentRequestCell", for: indexPath) as! RecentRequestCell
-        let data = recentRequests[indexPath.row]
-        cell.topLabel.text = "\(data.cityName), \(data.temperature)°F"
-        cell.bottomLabel.text = "\(data.date) \(data.time)"
+        let weatherRequest = recentRequests[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecentRequestCell", for: indexPath) as? RecentRequestCell,
+              let city = weatherRequest.value(forKey: "city") as? String,
+              let temperatureString = weatherRequest.value(forKey: "temperature") as? String,
+              let temperature = Int(temperatureString),
+              let date = weatherRequest.value(forKey: "date") as? String,
+              let time = weatherRequest.value(forKey: "time") as? String
+        else {
+            return UITableViewCell()
+        }
+        
+        cell.topLabel.text = "\(city), \(temperature)°F"
+        cell.bottomLabel.text = "\(date) \(time)"
         return cell
     }
 }
