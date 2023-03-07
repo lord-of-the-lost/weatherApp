@@ -14,6 +14,8 @@
 		6042BDA629B6B04200BBB537 /* CurrentWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042BDA529B6B04200BBB537 /* CurrentWeatherView.swift */; };
 		6042BDA829B6B2E000BBB537 /* RecentRequestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042BDA729B6B2E000BBB537 /* RecentRequestViewModel.swift */; };
 		6042BDAA29B6B4C500BBB537 /* RecentRequestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042BDA929B6B4C500BBB537 /* RecentRequestCell.swift */; };
+		6042BDAC29B6BF1C00BBB537 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042BDAB29B6BF1C00BBB537 /* NetworkManager.swift */; };
+		6042BDAE29B6C2B500BBB537 /* RequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6042BDAD29B6C2B500BBB537 /* RequestModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		6042BDA529B6B04200BBB537 /* CurrentWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherView.swift; sourceTree = "<group>"; };
 		6042BDA729B6B2E000BBB537 /* RecentRequestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRequestViewModel.swift; sourceTree = "<group>"; };
 		6042BDA929B6B4C500BBB537 /* RecentRequestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentRequestCell.swift; sourceTree = "<group>"; };
+		6042BDAB29B6BF1C00BBB537 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		6042BDAD29B6C2B500BBB537 /* RequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +67,8 @@
 				6042BDA729B6B2E000BBB537 /* RecentRequestViewModel.swift */,
 				6042BDA529B6B04200BBB537 /* CurrentWeatherView.swift */,
 				6042BDA929B6B4C500BBB537 /* RecentRequestCell.swift */,
+				6042BDAB29B6BF1C00BBB537 /* NetworkManager.swift */,
+				6042BDAD29B6C2B500BBB537 /* RequestModel.swift */,
 				6042BD9029B4E5A400BBB537 /* Assets.xcassets */,
 				6042BD9229B4E5A400BBB537 /* LaunchScreen.storyboard */,
 				6042BD9529B4E5A400BBB537 /* Info.plist */,
@@ -140,6 +146,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6042BDAE29B6C2B500BBB537 /* RequestModel.swift in Sources */,
+				6042BDAC29B6BF1C00BBB537 /* NetworkManager.swift in Sources */,
 				6042BDAA29B6B4C500BBB537 /* RecentRequestCell.swift in Sources */,
 				6042BDA629B6B04200BBB537 /* CurrentWeatherView.swift in Sources */,
 				6042BDA829B6B2E000BBB537 /* RecentRequestViewModel.swift in Sources */,
