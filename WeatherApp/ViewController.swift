@@ -13,11 +13,21 @@ final class ViewController: UIViewController {
     
     private let currentWeatherView = CurrentWeatherView(frame: .zero)
     
+    private let recentRequestList: UITableView = {
+        let tableView = UITableView()
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(RecentRequestCell.self, forCellReuseIdentifier: "RecentRequestCell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setNavigationController()
         setupView()
+        recentRequestList.dataSource = self
     }
     
     private func setNavigationController() {
@@ -37,7 +47,7 @@ final class ViewController: UIViewController {
     
     private func setupView() {
         view.addSubview(currentWeatherView)
-        currentWeatherView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(recentRequestList)
         setupConstraints()
     }
     
@@ -46,6 +56,10 @@ final class ViewController: UIViewController {
             currentWeatherView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             currentWeatherView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             currentWeatherView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recentRequestList.topAnchor.constraint(equalTo: currentWeatherView.bottomAnchor),
+            recentRequestList.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            recentRequestList.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            recentRequestList.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
@@ -61,3 +75,18 @@ extension ViewController: UISearchBarDelegate {
         print(searchText)
     }
 }
+
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        recentRequests.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecentRequestCell", for: indexPath) as! RecentRequestCell
+        let data = recentRequests[indexPath.row]
+        cell.topLabel.text = "\(data.cityName), \(data.temperature)°F"
+        cell.bottomLabel.text = "\(data.date) \(data.time)"
+        return cell
+    }
+}
+

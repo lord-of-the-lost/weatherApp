@@ -62,6 +62,7 @@ final class CurrentWeatherView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
+        translatesAutoresizingMaskIntoConstraints = false
     }
     
     required init?(coder: NSCoder) {
