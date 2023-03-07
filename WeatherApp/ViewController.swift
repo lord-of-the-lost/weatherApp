@@ -69,10 +69,24 @@ final class ViewController: UIViewController {
     
 }
 
-
 extension ViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text, !searchText.isEmpty else { return }
+        NetworkManager.shared.getCurrentWeather(for: searchText) { [weak self] result in
+            switch result {
+            case .success(let weather):
+                DispatchQueue.main.async { [weak self] in
+                    if let cityName = weather.name, let temperature = weather.main,
+                        let temp = temperature.temp, let minTemp = temperature.tempMin, let maxTemp = temperature.tempMax {
+                        self?.currentWeatherView.update(city: cityName, temperature: temp, minTemp: minTemp, maxTemp: maxTemp)
+                    } else {
+                        print("Error")
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
