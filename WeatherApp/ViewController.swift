@@ -77,8 +77,24 @@ extension ViewController: UISearchBarDelegate {
             case .success(let weather):
                 DispatchQueue.main.async { [weak self] in
                     if let cityName = weather.name, let temperature = weather.main,
-                        let temp = temperature.temp, let minTemp = temperature.tempMin, let maxTemp = temperature.tempMax {
+                       let temp = temperature.temp, let minTemp = temperature.tempMin, let maxTemp = temperature.tempMax {
                         self?.currentWeatherView.update(city: cityName, temperature: temp, minTemp: minTemp, maxTemp: maxTemp)
+                        
+                            let dateFormatter = DateFormatter()
+                            dateFormatter.dateFormat = "dd.MM.yyyy"
+                            let dateString = dateFormatter.string(from: Date())
+                            
+                            let timeFormatter = DateFormatter()
+                            timeFormatter.dateFormat = "HH:mm:ss"
+                            let timeString = timeFormatter.string(from: Date())
+                        
+                            let recentRequestItem = RecentRequestViewModel(cityName: cityName,
+                                                               temperature: String(convertToFahrenheit(temp)),
+                                                               date: dateString,
+                                                               time: timeString)
+                        recentRequests.append(recentRequestItem)
+                        self?.recentRequestList.reloadData()
+                        
                     } else {
                         print("Error")
                     }
@@ -103,4 +119,3 @@ extension ViewController: UITableViewDataSource {
         return cell
     }
 }
-

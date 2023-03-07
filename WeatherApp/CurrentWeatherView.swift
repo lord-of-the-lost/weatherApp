@@ -139,10 +139,6 @@ final class CurrentWeatherView: UIView {
         return Int(kelvin - 273.15)
     }
     
-    private func convertToFahrenheit(_ kelvin: Double) -> Int {
-        return Int((kelvin - 273.15) * 1.8 + 32)
-    }
-    
     
     private func stateForTemperature(_ celsius: Int) -> State {
         if celsius < 10 {
